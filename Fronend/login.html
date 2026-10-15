@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GYM PRO - System Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&display=swap");
+
+      :root {
+        --primary-neon: #ff6b00;
+        --cyan-neon: #00eaff;
+        --dark-bg: #0a0d12;
+        --card-bg: rgba(20, 20, 20, 0.85);
+        --text-white: #ffffff;
+        --text-muted: #b5b5b5;
+      }
+
+      body {
+        background-color: var(--dark-bg);
+        background-image:
+          radial-gradient(
+            circle at 15% 50%,
+            rgba(255, 107, 0, 0.08),
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at 85% 30%,
+            rgba(0, 234, 255, 0.05),
+            transparent 25%
+          );
+        font-family: "Rajdhani", sans-serif;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        color: var(--text-white);
+        margin: 0;
+      }
+
+      .login-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+        width: 100%;
+        max-width: 1200px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .cyber-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        padding: 40px;
+        position: relative;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+        width: 450px;
+        z-index: 10;
+      }
+
+      .cyber-card::before,
+      .cyber-card::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 2px solid var(--primary-neon);
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+
+      .cyber-card::before {
+        top: -2px;
+        left: -2px;
+        border-right: none;
+        border-bottom: none;
+      }
+      .cyber-card::after {
+        bottom: -2px;
+        right: -2px;
+        border-left: none;
+        border-top: none;
+      }
+
+      .cyber-card:hover::before,
+      .cyber-card:hover::after {
+        width: 100%;
+        height: 100%;
+        border-color: rgba(255, 107, 0, 0.3);
+      }
+
+      .brand-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        margin-bottom: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--text-white),
+          var(--text-muted)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .brand-subtitle {
+        text-align: center;
+        color: var(--primary-neon);
+        font-weight: 600;
+        letter-spacing: 5px;
+        margin-bottom: 30px;
+        font-size: 0.9rem;
+        text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+      }
+
+      .form-group {
+        position: relative;
+        margin-bottom: 25px;
+      }
+
+      .form-control-cyber {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--primary-neon);
+        padding: 12px 15px 12px 45px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: all 0.3s;
+        position: relative;
+        z-index: 2;
+      }
+
+      .form-control-cyber:focus {
+        outline: none;
+        border-color: var(--primary-neon);
+        box-shadow: inset 0 0 10px rgba(255, 107, 0, 0.2);
+        background: rgba(0, 0, 0, 0.6);
+      }
+
+      .form-control-cyber::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+        font-weight: 500;
+      }
+
+      .input-icon {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        transition: color 0.3s;
+        pointer-events: none;
+        z-index: 3;
+      }
+
+      .form-control-cyber:focus + .input-icon {
+        color: var(--primary-neon);
+      }
+
+      .btn-cyber {
+        width: 100%;
+        background: transparent;
+        color: var(--primary-neon);
+        border: 1px solid var(--primary-neon);
+        padding: 12px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        margin-top: 10px;
+        z-index: 5;
+      }
+
+      .btn-cyber::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-neon);
+        transition: all 0.4s ease;
+        z-index: -1;
+      }
+
+      .btn-cyber:hover {
+        color: var(--dark-bg);
+        box-shadow: 0 0 20px rgba(255, 107, 0, 0.6);
+      }
+      .btn-cyber:hover::before {
+        left: 0;
+      }
+
+      .password-toggle {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: color 0.3s;
+        z-index: 5;
+      }
+      .password-toggle:hover {
+        color: var(--text-white);
+      }
+
+      .side-widget {
+        width: 260px;
+        background: rgba(10, 10, 10, 0.7);
+        border: 1px solid rgba(255, 107, 0, 0.2);
+        border-radius: 4px;
+        padding: 20px;
+        position: relative;
+        font-size: 0.9rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+      }
+
+      .side-widget:hover {
+        border-color: rgba(0, 234, 255, 0.5);
+        box-shadow:
+          0 0 15px rgba(0, 234, 255, 0.2),
+          inset 0 0 10px rgba(0, 234, 255, 0.1);
+      }
+
+      .scan-line {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: rgba(0, 234, 255, 0.6);
+        box-shadow: 0 0 15px rgba(0, 234, 255, 1);
+        top: 0;
+        left: 0;
+        z-index: 1;
+        pointer-events: none;
+        animation: scanning 3s linear infinite;
+        opacity: 0.7;
+      }
+
+      @keyframes scanning {
+        0% {
+          top: -10%;
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          top: 110%;
+          opacity: 0;
+        }
+      }
+
+      .widget-title {
+        color: var(--primary-neon);
+        font-weight: 700;
+        letter-spacing: 2px;
+        border-bottom: 1px dashed rgba(255, 107, 0, 0.4);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .data-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 5px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        position: relative;
+        z-index: 2;
+        transition: all 0.2s;
+        cursor: crosshair;
+      }
+
+      .data-row:hover {
+        background: rgba(0, 234, 255, 0.1);
+        padding-left: 12px;
+        color: var(--text-white);
+        border-left: 2px solid var(--cyan-neon);
+      }
+
+      .btn-micro {
+        width: 100%;
+        background: transparent;
+        border: 1px solid rgba(255, 107, 0, 0.5);
+        color: var(--text-muted);
+        padding: 5px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-top: 15px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        z-index: 2;
+        text-transform: uppercase;
+      }
+
+      .btn-micro:hover {
+        background: rgba(255, 107, 0, 0.2);
+        color: var(--primary-neon);
+        border-color: var(--primary-neon);
+        box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
+      }
+
+      .text-neon-cyan {
+        color: var(--cyan-neon);
+        text-shadow: 0 0 5px rgba(0, 234, 255, 0.5);
+        font-weight: 600;
+      }
+      .text-neon-orange {
+        color: var(--primary-neon);
+        text-shadow: 0 0 5px rgba(255, 107, 0, 0.5);
+        font-weight: 600;
+      }
+
+      .blink {
+        animation: blink 1.5s infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .spin-icon {
+        display: inline-block;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .circuit-line {
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 1px;
+        background: var(--primary-neon);
+        opacity: 0.4;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .circuit-left {
+        right: -50px;
+      }
+      .circuit-right {
+        left: -50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="side-widget d-none d-lg-block">
+        <div class="scan-line"></div>
+        <div class="widget-title">SYSTEM STATUS</div>
+        <div class="widget-content">
+          <div class="data-row">
+            <span>SYS_TIME:</span>
+            <span class="text-neon-cyan" id="sys-clock">00:00:00</span>
+          </div>
+          <div class="data-row">
+            <span>Server:</span>
+            <span class="text-neon-cyan blink">Online</span>
+          </div>
+          <div class="data-row">
+            <span>Database:</span>
+            <span class="text-neon-cyan">Connected</span>
+          </div>
+          <div class="data-row">
+            <span>Network Ping:</span>
+            <span id="ping-text">14ms</span>
+          </div>
+          <div class="data-row">
+            <span>API Version:</span>
+            <span>v1.0 (NET10)</span>
+          </div>
+        </div>
+        <button class="btn-micro" onclick="runDiagnostics(this)">
+          <i class="bi bi-cpu"></i> RUN DIAGNOSTICS
+        </button>
+        <div class="circuit-line circuit-left"></div>
+      </div>
+
+      <div class="cyber-card">
+        <div class="brand-title">GYM PRO</div>
+        <div class="brand-subtitle">SYSTEM AUTHENTICATION</div>
+
+        <div
+          id="thongBaoLoi"
+          class="alert alert-danger rounded-0 d-none text-center fw-bold mb-4"
+          style="background: rgba(255, 0, 0, 0.1); border-color: red"
+        ></div>
+
+        <form id="formDangNhap">
+          <div class="form-group">
+            <input
+              type="text"
+              id="txtEmail"
+              class="form-control-cyber"
+              placeholder="EMAIL / SĐT..."
+              required
+            />
+            <i class="bi bi-person input-icon"></i>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="password"
+              id="txtPassword"
+              class="form-control-cyber"
+              placeholder="PASSWORD..."
+              required
+            />
+            <i class="bi bi-shield-lock input-icon"></i>
+            <i
+              class="bi bi-eye-slash password-toggle"
+              id="eyeIconToggle"
+              onclick="handleTogglePassword()"
+            ></i>
+          </div>
+
+          <button type="submit" class="btn-cyber" id="btnDangNhap">
+            ACCESS SYSTEM <i class="bi bi-box-arrow-in-right ms-2"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="side-widget d-none d-lg-block">
+        <div class="scan-line" style="animation-delay: 1.5s"></div>
+        <div class="widget-title">SECURITY PROTOCOL</div>
+        <div class="widget-content">
+          <div class="data-row">
+            <span>Auth Type:</span>
+            <span class="text-neon-orange">JWT Token</span>
+          </div>
+          <div class="data-row">
+            <span>Encryption:</span>
+            <span class="text-neon-orange">BCrypt</span>
+          </div>
+          <div class="data-row">
+            <span>Firewall:</span>
+            <span class="text-neon-cyan">Active</span>
+          </div>
+          <div class="data-row">
+            <span>Intrusion:</span>
+            <span>0 Attempts</span>
+          </div>
+        </div>
+        <button class="btn-micro" onclick="verifyNetwork(this)">
+          <i class="bi bi-shield-check"></i> VERIFY SECURE LINK
+        </button>
+        <div class="circuit-line circuit-right"></div>
+      </div>
+    </div>
+
+    <script src="./assets/js/api.js"></script>
+    <script>
+      function handleTogglePassword() {
+        var passwordInput = document.getElementById("txtPassword");
+        var icon = document.getElementById("eyeIconToggle");
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          icon.classList.replace("bi-eye-slash", "bi-eye");
+        } else {
+          passwordInput.type = "password";
+          icon.classList.replace("bi-eye", "bi-eye-slash");
+        }
+      }
+
+      setInterval(() => {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString("en-GB", { hour12: false });
+        document.getElementById("sys-clock").innerText = timeStr;
+      }, 1000);
+
+      function runDiagnostics(btn) {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML =
+          '<i class="bi bi-arrow-repeat spin-icon"></i> SCANNING KERNEL...';
+        btn.style.color = "var(--cyan-neon)";
+        btn.style.borderColor = "var(--cyan-neon)";
+        btn.style.pointerEvents = "none";
+
+        setTimeout(() => {
+          document.getElementById("ping-text").innerText =
+            Math.floor(Math.random() * 10 + 5) + "ms";
+          btn.innerHTML = '<i class="bi bi-check2-all"></i> SYSTEM OPTIMAL';
+          setTimeout(() => {
+            btn.innerHTML = originalHtml;
+            btn.style = "";
+            btn.style.pointerEvents = "auto";
+          }, 2000);
+        }, 1500);
+      }
+
+      function verifyNetwork(btn) {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML =
+          '<i class="bi bi-shield-shaded spin-icon"></i> ESTABLISHING...';
+        btn.style.color = "var(--primary-neon)";
+        btn.style.borderColor = "var(--primary-neon)";
+        btn.style.pointerEvents = "none";
+
+        setTimeout(() => {
+          btn.innerHTML = '<i class="bi bi-shield-lock"></i> LINK SECURED';
+          setTimeout(() => {
+            btn.innerHTML = originalHtml;
+            btn.style = "";
+            btn.style.pointerEvents = "auto";
+          }, 2000);
+        }, 1500);
+      }
+
+      document
+        .getElementById("formDangNhap")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const email = document.getElementById("txtEmail").value;
+          const password = document.getElementById("txtPassword").value;
+          const thongBao = document.getElementById("thongBaoLoi");
+          const btn = document.getElementById("btnDangNhap");
+
+          btn.disabled = true;
+          btn.innerHTML =
+            'VERIFYING CREDENTIALS <i class="bi bi-arrow-repeat spin-icon ms-2"></i>';
+          thongBao.classList.add("d-none");
+
+          const res = await callApi("/Auth/login", "POST", {
+            Email: email,
+            Password: password,
+          });
+
+          if (res && res.status === 200) {
+            btn.innerHTML = 'AUTH SUCCESS <i class="bi bi-unlock ms-2"></i>';
+            btn.style.background = "var(--primary-neon)";
+            btn.style.color = "var(--dark-bg)";
+
+            const userData = res.data.data;
+            localStorage.setItem("jwt_token", userData.token);
+            localStorage.setItem("userRole", userData.role);
+
+            setTimeout(() => {
+              if (
+                userData.role === "Admin" ||
+                userData.role === "Receptionist"
+              ) {
+                window.location.href = "index.html";
+              } else if (userData.role === "Member") {
+                localStorage.setItem("memberId", userData.member_id);
+                window.location.href = "member-portal.html";
+              }
+            }, 800);
+          } else {
+            thongBao.innerText = "[!] LỖI BẢO MẬT: SAI TÀI KHOẢN HOẶC MẬT KHẨU";
+            thongBao.classList.remove("d-none");
+            btn.disabled = false;
+            btn.innerHTML =
+              'ACCESS SYSTEM <i class="bi bi-box-arrow-in-right ms-2"></i>';
+          }
+        });
+    </script>
+  </body>
+</html>

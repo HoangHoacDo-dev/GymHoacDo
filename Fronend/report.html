@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Báo cáo & Tài chính - GYM PRO MANAGEMENT</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --gym-orange: #ff6b00;
+        --gym-dark-bg: #f8f9fa;
+        --gym-sidebar-active: #fff3eb;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--gym-dark-bg);
+      }
+
+      .sidebar {
+        width: 240px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        background-color: #ffffff;
+        border-right: 1px solid #e5e5e5;
+        padding-top: 20px;
+      }
+      .sidebar .nav-link {
+        color: #6c757d;
+        font-weight: 500;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-left: 4px solid transparent;
+        text-decoration: none;
+      }
+      .sidebar .nav-link:hover {
+        color: var(--gym-orange);
+        background-color: #fdf8f5;
+      }
+      .sidebar .nav-link.active {
+        color: #ffffff;
+        background-color: var(--gym-orange);
+        border-left: 4px solid #d45900;
+        border-radius: 0 8px 8px 0;
+        margin-right: 15px;
+      }
+
+      .main-content {
+        margin-left: 240px;
+        padding: 20px 40px;
+      }
+      .avatar-img {
+        width: 35px;
+        height: 35px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .search-box {
+        background-color: #f1f3f5;
+        border: none;
+        border-radius: 20px;
+        padding-left: 40px;
+      }
+      .search-wrapper {
+        position: relative;
+      }
+      .search-wrapper i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #adb5bd;
+      }
+      .dashboard-block {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      .nav-pills .nav-link {
+        color: #6c757d;
+        background-color: #ffffff;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        font-weight: 600;
+        padding: 8px 20px;
+        margin-right: 10px;
+        transition: all 0.2s ease-in-out;
+      }
+      .nav-pills .nav-link.active {
+        background-color: var(--gym-orange);
+        color: #ffffff;
+        border-color: var(--gym-orange);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="px-4 mb-4 d-flex align-items-center gap-2">
+        <span class="fs-4 text-warning"><i class="bi bi-dumbbell"></i></span>
+        <span class="fw-bold fs-5 text-dark"
+          >GYM PRO<br /><small
+            class="fs-6 text-muted"
+            style="font-size: 11px; letter-spacing: 1px"
+            >MANAGEMENT</small
+          ></span
+        >
+      </div>
+
+      <ul class="nav flex-column mt-4">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html"
+            ><i class="bi bi-grid-fill"></i> Tổng quan</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="member.html"
+            ><i class="bi bi-people"></i> Quản lý Hội viên</a
+          >
+        </li>
+        <li class="nav-item" id="menu-package">
+          <a class="nav-link" href="packages.html"
+            ><i class="bi bi-box-seam"></i> Gói tập & Dịch vụ</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="checkin.html"
+            ><i class="bi bi-calendar-check"></i> Lịch sử Check-in</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="subscription.html"
+            ><i class="bi bi-person-badge"></i> Thẻ tập & Bảo lưu</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="report.html"
+            ><i class="bi bi-bar-chart-line"></i> Báo cáo & Tài chính</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="main-content">
+      <div class="d-flex justify-content-between align-items-center mb-4 py-2">
+        <div class="search-wrapper style-w">
+          <i class="bi bi-search"></i>
+          <input
+            type="text"
+            class="form-control search-box"
+            placeholder="Tìm kiếm..."
+            style="width: 300px"
+          />
+        </div>
+
+        <div class="d-flex align-items-center gap-4">
+          <a href="#" class="text-muted position-relative fs-5"
+            ><i class="bi bi-chat-left-text"></i
+          ></a>
+          <a href="#" class="text-muted position-relative fs-5">
+            <i class="bi bi-bell"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
+            ></span>
+          </a>
+          <span class="text-muted small fw-medium">Hôm nay</span>
+          <div class="d-flex align-items-center gap-2">
+            <div class="text-end">
+              <div
+                class="fw-bold text-dark mb-0"
+                style="font-size: 14px"
+                id="userRoleDisplay"
+              >
+                Quản trị viên
+              </div>
+              <small
+                class="text-muted"
+                style="font-size: 12px"
+                id="userNameDisplay"
+                >Bùi Hoàng Anh</small
+              >
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80"
+              alt="Avatar"
+              class="avatar-img border border-2 border-warning"
+            />
+          </div>
+          <button
+            class="btn btn-outline-danger btn-sm rounded-pill px-3 ms-2"
+            onclick="dangXuat()"
+          >
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+
+      <h4 class="fw-bold text-dark mb-4 text-uppercase">BÁO CÁO & TÀI CHÍNH</h4>
+
+      <div class="dashboard-block">
+        <div
+          class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3"
+        >
+          <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="pills-expiring-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-expiring"
+                type="button"
+                role="tab"
+                onclick="taiBaoCao()"
+              >
+                Thẻ sắp hết hạn
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-frozen-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-frozen"
+                type="button"
+                role="tab"
+                onclick="taiDanhSachBaoLuu()"
+              >
+                Danh sách đang bảo lưu
+              </button>
+            </li>
+          </ul>
+          <button class="btn btn-success fw-bold btn-sm px-3 shadow-sm">
+            <i class="bi bi-file-earmark-excel"></i> Xuất Excel
+          </button>
+        </div>
+
+        <div class="tab-content" id="pills-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="pills-expiring"
+            role="tabpanel"
+          >
+            <div class="table-responsive">
+              <table
+                class="table table-hover align-middle mb-0"
+                style="font-size: 14px"
+              >
+                <thead class="table-light text-secondary">
+                  <tr>
+                    <th
+                      class="ps-3 border-top-0 border-bottom-2 border-warning"
+                    >
+                      Mã Thẻ
+                    </th>
+                    <th class="border-top-0 border-bottom-2 border-warning">
+                      Mã HV
+                    </th>
+                    <th class="border-top-0 border-bottom-2 border-warning">
+                      Tên Gói
+                    </th>
+                    <th class="border-top-0 border-bottom-2 border-warning">
+                      Ngày Đăng Ký
+                    </th>
+                    <th class="border-top-0 border-bottom-2 border-warning">
+                      Ngày Hết Hạn
+                    </th>
+                    <th
+                      class="text-center border-top-0 border-bottom-2 border-warning"
+                    >
+                      Trạng thái
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="bangBaoCao">
+                  <tr>
+                    <td colspan="6" class="text-center py-4 text-muted">
+                      Đang tải dữ liệu...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="pills-frozen" role="tabpanel">
+            <div class="table-responsive">
+              <table
+                class="table table-hover align-middle mb-0"
+                style="font-size: 14px"
+              >
+                <thead class="table-light text-secondary">
+                  <tr>
+                    <th class="ps-3 border-top-0 border-bottom-2 border-info">
+                      Mã Thẻ
+                    </th>
+                    <th class="border-top-0 border-bottom-2 border-info">
+                      Tên Hội viên
+                    </th>
+                    <th class="border-top-0 border-bottom-2 border-info">
+                      Ngày bắt đầu nghỉ
+                    </th>
+                    <th class="border-top-0 border-bottom-2 border-info">
+                      Ngày tập lại
+                    </th>
+                    <th
+                      class="text-center border-top-0 border-bottom-2 border-info"
+                    >
+                      Số ngày bảo lưu
+                    </th>
+                    <th
+                      class="text-center border-top-0 border-bottom-2 border-info"
+                    >
+                      Tiến độ
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="bangBaoLuu">
+                  <tr>
+                    <td colspan="6" class="text-center py-4 text-muted">
+                      Đang tải dữ liệu...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script>
+      if (typeof kiemTraDangNhap === "function") {
+        kiemTraDangNhap();
+      }
+
+      function phanQuyenGiaoDien() {
+        const role = localStorage.getItem("userRole");
+        if (role === "Receptionist") {
+          const menuPackage = document.getElementById("menu-package");
+          const menuReport = document.getElementById("menu-report");
+          if (menuPackage) menuPackage.style.display = "none";
+          if (menuReport) menuReport.style.display = "none";
+        }
+        const userRoleDisplay = document.getElementById("userRoleDisplay");
+        if (userRoleDisplay) {
+          userRoleDisplay.innerText =
+            role === "Admin" ? "Quản trị viên" : "Nhân viên Lễ tân";
+        }
+      }
+      phanQuyenGiaoDien();
+
+      function dangXuat() {
+        localStorage.clear();
+        window.location.href = "login.html";
+      }
+
+      async function taiBaoCao() {
+        const res = await callApi("/Report/Expiring", "GET");
+        const tbody = document.getElementById("bangBaoCao");
+        tbody.innerHTML = "";
+
+        if (res && res.status === 200 && res.data.data) {
+          if (res.data.data.length === 0) {
+            tbody.innerHTML =
+              "<tr><td colspan='6' class='text-center py-5 text-success fw-bold'>Tuyệt vời! Hiện tại không có thẻ nào sắp hết hạn.</td></tr>";
+            return;
+          }
+
+          res.data.data.forEach((the) => {
+            const ngayDk = the.start_date ? the.start_date.split("T")[0] : "";
+            const ngayHh = the.end_date ? the.end_date.split("T")[0] : "";
+
+            tbody.innerHTML += `
+            <tr>
+              <td class="ps-3 fw-bold text-muted">#SUB${the.id}</td>
+              <td class="fw-bold text-dark">HV-${the.member_id}</td>
+              <td class="text-primary fw-bold">${the.package_name || "Gói tập Gym/Yoga"}</td>
+              <td>${ngayDk}</td>
+              <td class="text-danger fw-bold">${ngayHh}</td>
+              <td class="text-center"><span class="badge bg-danger px-3 py-1 rounded-pill shadow-sm">Sắp hết hạn</span></td>
+            </tr>
+          `;
+          });
+        } else {
+          tbody.innerHTML =
+            "<tr><td colspan='6' class='text-center text-danger py-5'>Lỗi kết nối máy chủ API.</td></tr>";
+        }
+      }
+
+      async function taiDanhSachBaoLuu() {
+        const res = await callApi("/Report/Frozen", "GET");
+        const tbody = document.getElementById("bangBaoLuu");
+        tbody.innerHTML = "";
+
+        if (res && res.status === 200 && res.data.data) {
+          if (res.data.data.length === 0) {
+            tbody.innerHTML =
+              "<tr><td colspan='6' class='text-center py-5 text-muted'>Hiện tại không có hội viên nào đang bảo lưu thẻ.</td></tr>";
+            return;
+          }
+
+          res.data.data.forEach((f) => {
+            const batDau = f.start_date ? f.start_date.split("T")[0] : "";
+            const ketThuc = f.end_date ? f.end_date.split("T")[0] : "";
+
+            tbody.innerHTML += `
+            <tr>
+              <td class="ps-3 fw-bold text-muted">#SUB${f.subscription_id}</td>
+              <td class="fw-bold text-dark">${f.member_name}</td>
+              <td>${batDau}</td>
+              <td class="text-primary fw-bold">${ketThuc}</td>
+              <td class="text-center"><span class="text-dark fw-bold">${f.total_days} ngày</span></td>
+              <td class="text-center">
+                <span class="badge bg-secondary px-3 py-1 rounded-pill">Còn lại ${f.remaining_days} ngày</span>
+              </td>
+            </tr>
+          `;
+          });
+        } else {
+          tbody.innerHTML =
+            "<tr><td colspan='6' class='text-center text-danger py-5'>Lỗi lấy dữ liệu bảo lưu.</td></tr>";
+        }
+      }
+
+      taiBaoCao();
+    </script>
+  </body>
+</html>

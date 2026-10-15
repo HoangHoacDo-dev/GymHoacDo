@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký Hội viên - GYM PRO</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --gym-orange: #ff6b00;
+        --gym-dark: #181c32;
+        --gym-light-bg: #f4f6f9;
+      }
+
+      body {
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--gym-light-bg);
+        color: #333;
+      }
+
+      .navbar {
+        background-color: var(--gym-dark);
+        padding: 15px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand {
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #fff !important;
+        font-size: 1.5rem;
+      }
+      .navbar-brand span {
+        color: var(--gym-orange);
+      }
+
+      .hero-section {
+        background:
+          linear-gradient(rgba(24, 28, 50, 0.75), rgba(24, 28, 50, 0.85)),
+          url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop")
+            no-repeat center center;
+        background-size: cover;
+        padding: 80px 0 140px 0;
+        color: white;
+        text-align: center;
+      }
+      .hero-title {
+        font-weight: 900;
+        font-size: 2.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+      }
+      .hero-subtitle {
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: #d1d5db;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .main-content {
+        margin-top: -80px;
+        position: relative;
+        z-index: 10;
+        padding-bottom: 60px;
+      }
+
+      .card-custom {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        height: 100%;
+        background-color: #fff;
+      }
+      .card-header-custom {
+        background-color: transparent;
+        border-bottom: 1px solid #eaeaea;
+        padding: 30px 30px 15px;
+      }
+      .card-title {
+        font-weight: 800;
+        color: var(--gym-dark);
+        margin: 0;
+        font-size: 1.25rem;
+        text-transform: uppercase;
+      }
+      .card-body-custom {
+        padding: 30px;
+      }
+
+      .card-dark {
+        background-color: var(--gym-dark);
+        color: white;
+        box-shadow: 0 10px 40px rgba(24, 28, 50, 0.3);
+      }
+      .card-dark .card-header-custom {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .card-dark .card-title {
+        color: white;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: #5a6268;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .form-control,
+      .form-select {
+        padding: 14px 18px;
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        background-color: #f8f9fa;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--gym-orange);
+        box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.15);
+        background-color: #fff;
+      }
+
+      .card-dark .form-control {
+        background-color: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: white;
+      }
+      .card-dark .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.12);
+        border-color: var(--gym-orange);
+        box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.2);
+        color: white;
+      }
+      .card-dark .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .btn-orange {
+        background-color: var(--gym-orange);
+        color: white;
+        font-weight: 700;
+        padding: 14px 24px;
+        border-radius: 10px;
+        border: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+      .btn-orange:hover {
+        background-color: #e66000;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+      }
+
+      .spin-icon {
+        display: inline-block;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .amenities-section {
+        background: white;
+        padding: 60px 0;
+      }
+      .amenity-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: rgba(255, 107, 0, 0.1);
+        color: var(--gym-orange);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 15px;
+        transition: all 0.3s;
+      }
+      .amenity-box:hover .amenity-icon {
+        background: var(--gym-orange);
+        color: white;
+        transform: scale(1.1);
+      }
+
+      .pricing-section {
+        padding: 80px 0;
+        background-color: var(--gym-light-bg);
+      }
+      .section-title {
+        font-weight: 900;
+        color: var(--gym-dark);
+        text-transform: uppercase;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      .pricing-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        height: 100%;
+      }
+      .pricing-card.popular {
+        border-color: var(--gym-orange);
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(255, 107, 0, 0.15);
+        position: relative;
+      }
+      .pricing-card.popular::before {
+        content: "BEST SELLER";
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--gym-orange);
+        color: white;
+        padding: 5px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+      }
+      .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .price-value {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: var(--gym-dark);
+        margin: 20px 0;
+      }
+      .price-value span {
+        font-size: 1rem;
+        color: #6c757d;
+        font-weight: 500;
+      }
+      .price-features {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+      .price-features li {
+        margin-bottom: 15px;
+        color: #555;
+        font-weight: 500;
+      }
+      .price-features li i {
+        color: var(--gym-orange);
+        margin-right: 10px;
+        font-size: 1.1rem;
+      }
+
+      .footer {
+        background: var(--gym-dark);
+        color: white;
+        padding: 40px 0 20px;
+        border-top: 5px solid var(--gym-orange);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark">
+      <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-activity"></i> GYM<span>PRO</span>
+        </a>
+        <a
+          href="login.html"
+          class="btn btn-outline-light btn-sm fw-bold px-3 py-2"
+          style="border-radius: 8px"
+        >
+          <i class="bi bi-shield-lock me-1"></i> NHÂN VIÊN
+        </a>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container">
+        <h1 class="hero-title">Bắt Đầu Hành Trình Của Bạn</h1>
+        <p class="hero-subtitle">
+          Đăng ký thông tin ngay hôm nay để nhận tư vấn lộ trình tập luyện cá
+          nhân hóa và trải nghiệm không gian đẳng cấp.
+        </p>
+      </div>
+    </section>
+
+    <section class="main-content container">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-7">
+          <div class="card-custom">
+            <div class="card-header-custom">
+              <h3 class="card-title">
+                <i class="bi bi-person-lines-fill text-warning me-2"></i> Thông
+                Tin Cá Nhân
+              </h3>
+            </div>
+            <div class="card-body-custom">
+              <form id="formKhachDangKy">
+                <div class="mb-4">
+                  <label class="form-label">Họ và Tên</label>
+                  <input
+                    type="text"
+                    id="txtKhachTen"
+                    class="form-control"
+                    placeholder="Nhập đầy đủ họ và tên của bạn..."
+                    required
+                  />
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-6 mb-4 mb-md-0">
+                    <label class="form-label">Số Điện Thoại</label>
+                    <input
+                      type="tel"
+                      id="txtKhachSdt"
+                      class="form-control"
+                      placeholder="09xx..."
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Ngày Sinh</label>
+                    <input
+                      type="date"
+                      id="txtKhachNgaySinh"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-4 mb-4 mb-md-0">
+                    <label class="form-label">Giới Tính</label>
+                    <select id="cbKhachGioiTinh" class="form-select" required>
+                      <option value="" disabled selected>Chọn...</option>
+                      <option value="Nam">Nam</option>
+                      <option value="Nữ">Nữ</option>
+                    </select>
+                  </div>
+                  <div class="col-md-8">
+                    <label class="form-label">Địa Chỉ Hiện Tại</label>
+                    <input
+                      type="text"
+                      id="txtKhachDiaChi"
+                      class="form-control"
+                      placeholder="Quận/Huyện, Tỉnh/Thành phố..."
+                      required
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-orange mt-2" id="btnGuiDangKy">
+                  Gửi Yêu Cầu Đăng Ký
+                  <i class="bi bi-arrow-right-circle ms-2"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card-custom card-dark">
+            <div class="card-header-custom">
+              <h3 class="card-title">
+                <i class="bi bi-search" style="color: var(--gym-orange)"></i>
+                Tra Cứu Hội Viên
+              </h3>
+            </div>
+            <div class="card-body-custom">
+              <p class="text-white-50 mb-4" style="font-size: 0.95rem">
+                Bạn đã là hội viên? Nhập số điện thoại để kiểm tra tình trạng
+                gói tập và ngày hết hạn.
+              </p>
+
+              <div class="d-flex gap-2 mb-4">
+                <input
+                  type="text"
+                  id="txtSdtTraCuu"
+                  class="form-control"
+                  placeholder="Nhập SĐT của bạn..."
+                />
+                <button
+                  class="btn-orange"
+                  id="btnTraCuu"
+                  style="width: auto; white-space: nowrap"
+                >
+                  Kiểm tra
+                </button>
+              </div>
+
+              <div id="vungKetQua"></div>
+
+              <div
+                class="mt-5 p-3 rounded"
+                style="
+                  background: rgba(255, 107, 0, 0.1);
+                  border: 1px dashed rgba(255, 107, 0, 0.3);
+                "
+              >
+                <div class="d-flex align-items-center">
+                  <i
+                    class="bi bi-headset fs-2 me-3"
+                    style="color: var(--gym-orange)"
+                  ></i>
+                  <div>
+                    <h6 class="fw-bold mb-1">Cần hỗ trợ trực tiếp?</h6>
+                    <small class="text-white-50"
+                      >Hotline Lễ Tân: <strong>1900 1234</strong></small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="amenities-section text-center">
+      <div class="container">
+        <h3 class="section-title mb-5">Đặc Quyền Hội Viên</h3>
+        <div class="row g-4">
+          <div class="col-md-3 col-6 amenity-box">
+            <div class="amenity-icon"><i class="bi bi-clock-history"></i></div>
+            <h6 class="fw-bold">Mở Cửa 24/7</h6>
+            <p class="text-muted small">Linh hoạt thời gian tập luyện</p>
+          </div>
+          <div class="col-md-3 col-6 amenity-box">
+            <div class="amenity-icon"><i class="bi bi-droplet"></i></div>
+            <h6 class="fw-bold">Phòng Xông Hơi</h6>
+            <p class="text-muted small">Thư giãn cơ bắp sau tập</p>
+          </div>
+          <div class="col-md-3 col-6 amenity-box">
+            <div class="amenity-icon"><i class="bi bi-p-circle"></i></div>
+            <h6 class="fw-bold">Giữ Xe Miễn Phí</h6>
+            <p class="text-muted small">An ninh 24/24</p>
+          </div>
+          <div class="col-md-3 col-6 amenity-box">
+            <div class="amenity-icon"><i class="bi bi-wifi"></i></div>
+            <h6 class="fw-bold">Wifi Tốc Độ Cao</h6>
+            <p class="text-muted small">Kết nối không gián đoạn</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <div class="container">
+        <h3 class="section-title">Bảng Giá Gói Tập</h3>
+        <div class="row g-4 justify-content-center">
+          <div class="col-lg-4 col-md-6">
+            <div class="pricing-card">
+              <h4 class="fw-bold text-muted">CLASSIC GYM</h4>
+              <div class="price-value">500k <span>/ tháng</span></div>
+              <ul class="price-features">
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Tập thả ga không giới
+                  hạn giờ
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Sử dụng toàn bộ máy
+                  tập
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Tủ đồ locker cá nhân
+                </li>
+                <li class="text-muted">
+                  <i class="bi bi-dash-circle text-muted"></i>
+                  <s>Lớp Yoga & Zumba</s>
+                </li>
+              </ul>
+              <a
+                href="#"
+                onclick="focusForm()"
+                class="btn btn-outline-dark fw-bold w-100 rounded-pill py-2"
+                >ĐĂNG KÝ NGAY</a
+              >
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="pricing-card popular">
+              <h4 class="fw-bold" style="color: var(--gym-orange)">
+                PREMIUM COMBO
+              </h4>
+              <div class="price-value">4.500k <span>/ năm</span></div>
+              <ul class="price-features">
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Bao gồm mọi quyền lợi
+                  Classic
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Tham gia Full lớp
+                  Yoga/Zumba
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Tặng 3 buổi PT 1 kèm 1
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <b>Tặng thêm 1 tháng tập</b>
+                </li>
+              </ul>
+              <a
+                href="#"
+                onclick="focusForm()"
+                class="btn btn-orange w-100 rounded-pill py-2"
+                >ĐĂNG KÝ NGAY</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container text-center">
+        <h5 class="fw-bold mb-3">
+          <i class="bi bi-activity text-warning"></i> GYM PRO FITNESS CENTER
+        </h5>
+        <p class="text-white-50 mb-1">
+          Địa chỉ: 124 Phùng Hưng, Quỳnh Mai, Nghệ An
+        </p>
+        <p class="text-white-50 mb-0">Hệ thống Quản lý gymmer - Hoắc Đô</p>
+      </div>
+    </footer>
+
+    <script src="./assets/js/api.js"></script>
+    <script>
+      document
+        .getElementById("btnTraCuu")
+        .addEventListener("click", async function () {
+          const sdtTraCuu = document
+            .getElementById("txtSdtTraCuu")
+            .value.trim();
+          const vungKetQua = document.getElementById("vungKetQua");
+          const btn = document.getElementById("btnTraCuu");
+
+          if (!sdtTraCuu) {
+            vungKetQua.innerHTML = `<div class="alert alert-danger border-0">Vui lòng nhập số điện thoại!</div>`;
+            return;
+          }
+
+          btn.innerHTML = '<i class="bi bi-arrow-repeat spin-icon"></i>';
+          btn.disabled = true;
+
+          try {
+            const resMember = await callApi(
+              "/Member?search=" + sdtTraCuu,
+              "GET",
+            );
+
+            let memberId = null;
+            if (resMember && resMember.status === 200 && resMember.data) {
+              const danhSach = resMember.data.data || resMember.data;
+              const member = Array.isArray(danhSach)
+                ? danhSach.find((m) => m.phone_number === sdtTraCuu)
+                : null;
+              if (member) memberId = member.id;
+            }
+
+            if (!memberId) {
+              vungKetQua.innerHTML = `<div class="alert alert-warning border-0 mt-3">Không tìm thấy hội viên khớp với SĐT này!</div>`;
+              btn.innerText = "Kiểm tra";
+              btn.disabled = false;
+              return;
+            }
+
+            const resThe = await callApi(
+              "/Subscription/Member/" + memberId,
+              "GET",
+            );
+
+            if (resThe && resThe.status === 200 && resThe.data) {
+              const theHienTai = Array.isArray(resThe.data.data)
+                ? resThe.data.data[0]
+                : resThe.data.data;
+
+              let badgeClass = theHienTai.status.includes("Active")
+                ? "bg-success"
+                : "bg-warning text-dark";
+
+              vungKetQua.innerHTML = `
+          <div class="alert bg-white text-dark shadow-sm mt-3 p-4 rounded-4" style="border-left: 5px solid var(--gym-orange);">
+            <h5 class="fw-bold mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>TÌM THẤY DỮ LIỆU</h5>
+            <div class="d-flex justify-content-between mb-2 border-bottom pb-2">
+              <span class="text-muted">Gói tập:</span>
+              <span class="fw-bold">${theHienTai.package_name || "N/A"}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2 border-bottom pb-2">
+              <span class="text-muted">Ngày hết hạn:</span>
+              <span class="fw-bold text-danger">${theHienTai.end_date ? theHienTai.end_date.split("T")[0] : "N/A"}</span>
+            </div>
+            <div class="d-flex justify-content-between mt-3 align-items-center">
+              <span class="badge ${badgeClass} px-3 py-2">${theHienTai.status}</span>
+              <span class="fw-bold">Còn lại: ${theHienTai.remaining_days} ngày</span>
+            </div>
+          </div>`;
+            } else {
+              vungKetQua.innerHTML = `<div class="alert alert-warning border-0 mt-3">Hội viên chưa có thẻ tập nào!</div>`;
+            }
+          } catch (err) {
+            vungKetQua.innerHTML = `<div class="alert alert-danger border-0 mt-3">Lỗi kết nối máy chủ API!</div>`;
+          }
+
+          btn.innerText = "Kiểm tra";
+          btn.disabled = false;
+        });
+      function focusForm() {
+        document.getElementById("txtKhachTen").focus();
+        window.scrollTo({ top: 300, behavior: "smooth" });
+      }
+      document
+        .getElementById("formKhachDangKy")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const data = {
+            full_name: document.getElementById("txtKhachTen").value,
+            phone_number: document.getElementById("txtKhachSdt").value,
+            dob: document.getElementById("txtKhachNgaySinh").value,
+            gender: document.getElementById("cbKhachGioiTinh").value,
+            address: document.getElementById("txtKhachDiaChi").value,
+          };
+
+          const btn = document.getElementById("btnGuiDangKy");
+          btn.innerHTML =
+            '<i class="bi bi-arrow-repeat spin-icon me-2"></i> Đang Xử Lý...';
+          btn.disabled = true;
+
+          const res = await callApi("/Member", "POST", data);
+
+          btn.innerHTML =
+            'Gửi Yêu Cầu Đăng Ký <i class="bi bi-arrow-right-circle ms-2"></i>';
+          btn.disabled = false;
+
+          if (res && (res.status === 200 || res.status === 201)) {
+            alert("🎉 Đăng ký thành công! Lễ tân sẽ liên hệ bạn ngay nhé.");
+            document.getElementById("formKhachDangKy").reset();
+          } else {
+            alert("❌ Có lỗi xảy ra! Số điện thoại có thể đã tồn tại.");
+          }
+        });
+    </script>
+  </body>
+</html>

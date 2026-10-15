@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gymhoacdo_sqlserver
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${GYMHOACDO_SA_PASSWORD:?Set password in .env}
+    ports:
+      - "1436:1433"
+    volumes:
+      - gymhoacdo_sqlserver_data:/var/opt/mssql
+
+volumes:
+  gymhoacdo_sqlserver_data:
+    name: gymhoacdo_sqlserver_data

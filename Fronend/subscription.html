@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thẻ tập & Bảo lưu - GYM PRO MANAGEMENT</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --gym-orange: #ff6b00;
+        --gym-dark-bg: #f8f9fa;
+        --gym-sidebar-active: #fff3eb;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--gym-dark-bg);
+      }
+
+      .sidebar {
+        width: 240px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        background-color: #ffffff;
+        border-right: 1px solid #e5e5e5;
+        padding-top: 20px;
+      }
+      .sidebar .nav-link {
+        color: #6c757d;
+        font-weight: 500;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-left: 4px solid transparent;
+        text-decoration: none;
+      }
+      .sidebar .nav-link:hover {
+        color: var(--gym-orange);
+        background-color: #fdf8f5;
+      }
+      .sidebar .nav-link.active {
+        color: #ffffff;
+        background-color: var(--gym-orange);
+        border-left: 4px solid #d45900;
+        border-radius: 0 8px 8px 0;
+        margin-right: 15px;
+      }
+
+      .main-content {
+        margin-left: 240px;
+        padding: 20px 40px;
+      }
+      .avatar-img {
+        width: 35px;
+        height: 35px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .search-box {
+        background-color: #f1f3f5;
+        border: none;
+        border-radius: 20px;
+        padding-left: 40px;
+      }
+      .search-wrapper {
+        position: relative;
+      }
+      .search-wrapper i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #adb5bd;
+      }
+      .dashboard-block {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="px-4 mb-4 d-flex align-items-center gap-2">
+        <span class="fs-4 text-warning"><i class="bi bi-dumbbell"></i></span>
+        <span class="fw-bold fs-5 text-dark"
+          >GYM PRO<br /><small
+            class="fs-6 text-muted"
+            style="font-size: 11px; letter-spacing: 1px"
+            >MANAGEMENT</small
+          ></span
+        >
+      </div>
+
+      <ul class="nav flex-column mt-4">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html"
+            ><i class="bi bi-grid-fill"></i> Tổng quan</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="member.html"
+            ><i class="bi bi-people"></i> Quản lý Hội viên</a
+          >
+        </li>
+        <li class="nav-item" id="menu-package">
+          <a class="nav-link" href="packages.html"
+            ><i class="bi bi-box-seam"></i> Gói tập & Dịch vụ</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="checkin.html"
+            ><i class="bi bi-calendar-check"></i> Lịch sử Check-in</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="subscription.html"
+            ><i class="bi bi-person-badge"></i> Thẻ tập & Bảo lưu</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="report.html"
+            ><i class="bi bi-bar-chart-line"></i> Báo cáo & Tài chính</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="main-content">
+      <div class="d-flex justify-content-between align-items-center mb-4 py-2">
+        <div class="search-wrapper style-w">
+          <i class="bi bi-search"></i>
+          <input
+            type="text"
+            class="form-control search-box"
+            placeholder="Tìm kiếm..."
+            style="width: 300px"
+          />
+        </div>
+
+        <div class="d-flex align-items-center gap-4">
+          <a href="#" class="text-muted position-relative fs-5"
+            ><i class="bi bi-chat-left-text"></i
+          ></a>
+          <a href="#" class="text-muted position-relative fs-5">
+            <i class="bi bi-bell"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
+            ></span>
+          </a>
+          <span class="text-muted small fw-medium">Hôm nay</span>
+          <div class="d-flex align-items-center gap-2">
+            <div class="text-end">
+              <div
+                class="fw-bold text-dark mb-0"
+                style="font-size: 14px"
+                id="userRoleDisplay"
+              >
+                Quản trị viên
+              </div>
+              <small
+                class="text-muted"
+                style="font-size: 12px"
+                id="userNameDisplay"
+                >Bùi Hoàng Anh</small
+              >
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80"
+              alt="Avatar"
+              class="avatar-img border border-2 border-warning"
+            />
+          </div>
+          <button
+            class="btn btn-outline-danger btn-sm rounded-pill px-3 ms-2"
+            onclick="dangXuat()"
+          >
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+
+      <h4 class="fw-bold text-dark mb-4 text-uppercase">
+        QUẢN LÝ THẺ TẬP & BẢO LƯU
+      </h4>
+
+      <div class="dashboard-block mb-4 border-top border-primary border-4">
+        <label class="form-label text-primary fw-bold mb-3"
+          ><i class="bi bi-person-bounding-box me-2"></i> VUI LÒNG CHỌN HỘI VIÊN
+          ĐỂ KIỂM TRA THẺ TẬP</label
+        >
+        <select
+          class="form-select form-select-lg border-primary shadow-sm bg-light fw-semibold text-dark"
+          id="cbHoiVien"
+          onchange="taiDanhSachThe()"
+        >
+          <option value="">-- Đang tải danh sách hội viên --</option>
+        </select>
+      </div>
+
+      <div class="dashboard-block">
+        <h6 class="fw-bold text-dark mb-3 text-uppercase">
+          <i class="bi bi-card-checklist me-2"></i> Danh sách thẻ đăng ký của
+          hội viên
+        </h6>
+        <div class="table-responsive">
+          <table
+            class="table table-hover align-middle mb-0"
+            style="font-size: 14px"
+          >
+            <thead class="table-light text-secondary">
+              <tr>
+                <th class="ps-3 border-top-0">Mã Thẻ</th>
+                <th class="border-top-0">Ngày Đăng Ký</th>
+                <th class="border-top-0">Ngày Hết Hạn</th>
+                <th class="border-top-0">Trạng Thái</th>
+                <th class="text-end border-top-0">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="bangTheTap">
+              <tr>
+                <td colspan="5" class="text-center py-5 text-muted">
+                  Vui lòng chọn hội viên ở khung phía trên để hiển thị dữ liệu
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalBaoLuu" tabindex="-1">
+      <div class="modal-dialog">
+        <div
+          class="modal-content border-0 shadow border-top border-warning border-4"
+        >
+          <div class="modal-header bg-light">
+            <h5 class="modal-title text-warning fw-bold">
+              <i class="bi bi-pause-circle me-2"></i> Thông tin Bảo lưu Thẻ
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body p-4">
+            <form id="formBaoLuu">
+              <input type="hidden" id="txtFreezeId" />
+              <div class="mb-3">
+                <label
+                  class="form-label text-muted fw-bold"
+                  style="font-size: 13px"
+                  >Ngày bắt đầu bảo lưu</label
+                >
+                <input
+                  type="date"
+                  class="form-control bg-light"
+                  id="txtStartDate"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  class="form-label text-muted fw-bold"
+                  style="font-size: 13px"
+                  >Ngày kết thúc bảo lưu</label
+                >
+                <input
+                  type="date"
+                  class="form-control bg-light"
+                  id="txtEndDate"
+                  required
+                />
+              </div>
+              <div class="mb-4">
+                <label
+                  class="form-label text-muted fw-bold"
+                  style="font-size: 13px"
+                  >Lý do bảo lưu</label
+                >
+                <textarea
+                  class="form-control bg-light"
+                  id="txtReason"
+                  rows="3"
+                  placeholder="Ví dụ: Khách đi công tác, ốm đau..."
+                  required
+                ></textarea>
+              </div>
+              <div class="text-end">
+                <button
+                  type="button"
+                  class="btn btn-light border fw-bold"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-warning fw-bold text-dark shadow-sm"
+                  id="btnXacNhanBaoLuu"
+                >
+                  Xác nhận Bảo lưu
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script>
+      if (typeof kiemTraDangNhap === "function") {
+        kiemTraDangNhap();
+      }
+      function phanQuyenGiaoDien() {
+        const role = localStorage.getItem("userRole");
+        if (role === "Receptionist") {
+          const menuPackage = document.getElementById("menu-package");
+          const menuReport = document.getElementById("menu-report");
+          if (menuPackage) menuPackage.style.display = "none";
+          if (menuReport) menuReport.style.display = "none";
+        }
+        const userRoleDisplay = document.getElementById("userRoleDisplay");
+        if (userRoleDisplay) {
+          userRoleDisplay.innerText =
+            role === "Admin" ? "Quản trị viên" : "Nhân viên Lễ tân";
+        }
+
+        const userNameDisplay = document.getElementById("userNameDisplay");
+        if (userNameDisplay) {
+          userNameDisplay.innerText =
+            role === "Admin" ? "Bùi Hoàng Anh" : "Hoàng Hoắc Đô";
+        }
+      }
+      phanQuyenGiaoDien();
+
+      function dangXuat() {
+        localStorage.clear();
+        window.location.href = "login.html";
+      }
+
+      const myModalBaoLuu = new bootstrap.Modal(
+        document.getElementById("modalBaoLuu"),
+      );
+
+      async function taiHoiVienVaoDropdown() {
+        const res = await callApi("/Member", "GET");
+        const cb = document.getElementById("cbHoiVien");
+
+        if (res && res.status === 200 && res.data) {
+          const dSach = res.data.data || res.data;
+          cb.innerHTML =
+            '<option value="">-- Click vào đây để chọn hội viên --</option>';
+          if (Array.isArray(dSach)) {
+            dSach.forEach((hv) => {
+              cb.innerHTML += `<option value="${hv.id}">${hv.full_name} (SĐT: ${hv.phone_number})</option>`;
+            });
+          }
+        } else {
+          cb.innerHTML = '<option value="">Lỗi tải dữ liệu hội viên</option>';
+        }
+      }
+
+      async function taiDanhSachThe() {
+        const memberId = document.getElementById("cbHoiVien").value;
+        const tbody = document.getElementById("bangTheTap");
+
+        if (!memberId) {
+          tbody.innerHTML =
+            "<tr><td colspan='5' class='text-center py-5 text-muted'>Vui lòng chọn hội viên ở khung phía trên để hiển thị dữ liệu</td></tr>";
+          return;
+        }
+
+        tbody.innerHTML =
+          "<tr><td colspan='5' class='text-center py-5'>Đang tải dữ liệu thẻ...</td></tr>";
+        const res = await callApi("/Subscription/Member/" + memberId, "GET");
+        console.log("Data thẻ tập:", JSON.stringify(res?.data));
+        if (!res || (res.status !== 200 && res.status !== 204)) {
+          tbody.innerHTML =
+            "<tr><td colspan='5' class='text-center text-danger py-5'>Không thể kết nối máy chủ API.</td></tr>";
+          return;
+        }
+
+        let danhSachThe = res.data ? res.data.data || res.data : [];
+        if (!Array.isArray(danhSachThe)) {
+          danhSachThe = danhSachThe ? [danhSachThe] : [];
+        }
+
+        if (danhSachThe.length === 0) {
+          tbody.innerHTML =
+            "<tr><td colspan='5' class='text-center py-5 text-muted'>Hội viên này chưa mua thẻ nào.</td></tr>";
+          return;
+        }
+
+        tbody.innerHTML = "";
+        danhSachThe.forEach((the) => {
+          const idThe = the.subscription_id;
+          let ngayDk = the.start_date
+            ? the.start_date.split("T")[0]
+            : "Chưa có";
+          let ngayHh = the.end_date ? the.end_date.split("T")[0] : "Chưa có";
+          const isFrozen = the.status && the.status.includes("Frozen");
+
+          let trangThai =
+            "<span class='badge bg-success-subtle text-success px-3 py-1 rounded-pill border border-success'>Hoạt động</span>";
+          let nutThaoTac = `<button class="btn btn-sm btn-outline-warning text-dark fw-bold px-3 shadow-sm" onclick="moModalBaoLuu(${idThe})"><i class="bi bi-pause-circle"></i> Đóng băng / Bảo lưu</button>`;
+
+          if (isFrozen) {
+            trangThai =
+              "<span class='badge bg-secondary px-3 py-1 rounded-pill'>Đang bảo lưu</span>";
+            nutThaoTac = `<button class="btn btn-sm text-white fw-bold px-3 shadow-sm" style="background-color: var(--gym-orange);" onclick="xuLyMoBaoLuu(${idThe})"><i class="bi bi-play-circle"></i> Mở khóa thẻ ngay</button>`;
+          }
+
+          tbody.innerHTML += `
+            <tr>
+              <td class="ps-3 fw-bold text-muted">#SUB${idThe}</td>
+              <td class="fw-bold text-dark">${ngayDk}</td>
+              <td class="text-danger fw-bold">${ngayHh}</td>
+              <td>${trangThai}</td>
+              <td class="text-end">${nutThaoTac}</td>
+            </tr>
+          `;
+        });
+      }
+
+      function moModalBaoLuu(id) {
+        document.getElementById("formBaoLuu").reset();
+        document.getElementById("txtFreezeId").value = id;
+        myModalBaoLuu.show();
+      }
+
+      document
+        .getElementById("formBaoLuu")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const id = document.getElementById("txtFreezeId").value;
+          const data = {
+            start_date:
+              document.getElementById("txtStartDate").value + "T00:00:00Z",
+            end_date:
+              document.getElementById("txtEndDate").value + "T00:00:00Z",
+            reason: document.getElementById("txtReason").value,
+          };
+
+          const btnXacNhan = document.getElementById("btnXacNhanBaoLuu");
+          btnXacNhan.innerText = "Đang xử lý...";
+          btnXacNhan.disabled = true;
+
+          const res = await callApi(
+            "/Subscription/" + id + "/freeze",
+            "POST",
+            data,
+          );
+
+          btnXacNhan.innerText = "Xác nhận Bảo lưu";
+          btnXacNhan.disabled = false;
+
+          if (
+            res &&
+            (res.status === 200 || res.status === 204 || res.status === 201)
+          ) {
+            alert("Bảo lưu thẻ thành công!");
+            myModalBaoLuu.hide();
+            taiDanhSachThe();
+          } else {
+            alert("Lỗi: Không thể bảo lưu. Vui lòng kiểm tra lại dữ liệu.");
+          }
+        });
+
+      async function xuLyMoBaoLuu(id) {
+        if (confirm("Xác nhận mở lại thẻ cho hội viên này?")) {
+          const res = await callApi(
+            "/Subscription/" + id + "/unfreeze",
+            "POST",
+          );
+
+          console.log("Response từ Backend:", res);
+
+          const isSuccess =
+            res &&
+            (res.status === 200 ||
+              res.status === 204 ||
+              res.statusCode === 200 ||
+              res.success === true ||
+              (typeof res === "object" && !res.error));
+
+          if (isSuccess) {
+            alert("Mở bảo lưu thành công!");
+            taiDanhSachThe();
+          } else {
+            const errorMsg =
+              res?.data?.message || res?.message || "Lỗi không xác định";
+            alert("Backend báo lỗi: " + errorMsg);
+          }
+        }
+      }
+      taiHoiVienVaoDropdown();
+    </script>
+  </body>
+</html>

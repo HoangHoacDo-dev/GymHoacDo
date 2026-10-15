@@ -1,0 +1,12 @@
+@API_HostAddress = http://localhost:5141
+
+POST {{API_HostAddress}}/api/Member
+Content-Type: application/json
+
+{
+  "full_name": "Nguyễn Văn A",
+  "phone_number": "0911222333",
+  "dob": "1995-10-15",
+  "gender": "Nam",
+  "address": "Vinh, Nghệ An"
+}
