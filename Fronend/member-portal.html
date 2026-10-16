@@ -2,223 +2,133 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <title>Cổng Hội Viên - GYM PRO MANAGEMENT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#151613" />
+    <title>Cổng hội viên | GymHoacDo</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/member-portal.css" />
   </head>
-  <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="#"
-          >GYM <span class="text-warning">MEMBER</span></a
-        >
-        <div class="d-flex align-items-center">
-          <span class="text-white me-3 fw-medium" id="tenHoiVien"
-            >Đang tải thông tin...</span
-          >
-          <button
-            class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3"
-            onclick="dangXuat()"
-          >
-            Đăng xuất
+  <body>
+    <a class="portal-skip" href="#portal-main">Bỏ qua điều hướng</a>
+    <header class="portal-header">
+      <div class="portal-shell portal-header-inner">
+        <a class="portal-brand" href="/" aria-label="GymHoacDo, về trang chủ">
+          <span class="portal-brand-mark" aria-hidden="true"><i class="bi bi-activity"></i></span>
+          <span>GYM<span class="portal-brand-accent">HOACDO</span><small>MEMBER SPACE</small></span>
+        </a>
+        <div class="portal-account">
+          <div class="portal-account-copy">
+            <span class="portal-overline">TÀI KHOẢN HỘI VIÊN</span>
+            <strong id="tenHoiVien">Đang tải thông tin...</strong>
+          </div>
+          <button class="portal-logout" id="btnDangXuat" type="button">
+            <i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>Đăng xuất</span>
           </button>
         </div>
       </div>
-    </nav>
+    </header>
 
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div
-            class="card border-0 shadow-sm border-top border-success border-4 h-100 rounded-3"
-          >
-            <div class="card-body text-center py-5">
-              <h6 class="text-muted fw-bold mb-4">GÓI TẬP HIỆN TẠI CỦA BẠN</h6>
-              <h3 class="text-success fw-bold my-3" id="tenGoiTap">
-                <span
-                  class="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-                Đang tải...
-              </h3>
-              <p class="mb-1 text-secondary mt-4">Ngày hết hạn:</p>
-              <h4 class="text-danger fw-bold mb-4" id="ngayHetHan">
-                --/--/----
-              </h4>
+    <main id="portal-main" class="portal-shell portal-main">
+      <section class="portal-welcome" aria-labelledby="welcome-title">
+        <div>
+          <p class="portal-eyebrow"><span></span> KHÔNG GIAN CỦA BẠN</p>
+          <h1 id="welcome-title">Chào mừng trở lại<span class="portal-period">.</span></h1>
+          <p class="portal-welcome-note">Theo dõi thẻ tập và lịch sử luyện tập của bạn tại GymHoacDo.</p>
+        </div>
+        <button class="portal-refresh" id="btnTaiLai" type="button">
+          <i class="bi bi-arrow-clockwise" aria-hidden="true"></i><span>Làm mới dữ liệu</span>
+        </button>
+      </section>
 
-              <hr class="my-4 w-75 mx-auto" />
-              <button
-                class="btn btn-warning fw-bold w-100 text-dark shadow-sm py-2"
-                onclick="moFormBaoLuu()"
-              >
-                Yêu cầu bảo lưu thẻ
+      <section class="portal-overview" aria-label="Tổng quan hội viên">
+        <article class="portal-card membership-card">
+          <div class="membership-topline">
+            <span class="portal-overline">THẺ TẬP HIỆN TẠI</span>
+            <span id="trangThaiThe" class="status-chip status-neutral"><span></span>Đang tải</span>
+          </div>
+          <h2 id="tenGoiTap" class="membership-name">Đang tải...</h2>
+          <div class="membership-meta">
+            <div><span>Ngày hết hạn</span><strong id="ngayHetHan">Đang tải...</strong></div>
+            <div><span>Thời gian còn lại</span><strong id="soNgayConLai">—</strong></div>
+          </div>
+          <div id="trangThaiTheText" class="membership-message" role="status">Đang tải thông tin thẻ của bạn.</div>
+        </article>
+
+        <article class="portal-card qr-card">
+          <div class="qr-copy">
+            <p class="portal-overline">CHECK-IN NHANH</p>
+            <h2>Mã QR hội viên</h2>
+            <p>Đưa mã này cho nhân viên quét tại quầy. Mã QR chứa số điện thoại đã đăng ký của bạn.</p>
+            <div class="qr-phone-row">
+              <span id="soDienThoai">Đang tải số điện thoại...</span>
+              <button id="btnSaoChepSdt" class="icon-action" type="button" aria-label="Sao chép số điện thoại" title="Sao chép số điện thoại" disabled>
+                <i class="bi bi-copy" aria-hidden="true"></i>
               </button>
             </div>
+            <button id="btnTaiQr" class="qr-download" type="button" disabled>
+              <i class="bi bi-download" aria-hidden="true"></i>Tải mã QR
+            </button>
           </div>
-        </div>
+          <div class="qr-frame">
+            <div id="maQrHoiVien" class="qr-code" aria-label="Mã QR check-in của hội viên"></div>
+            <p id="trangThaiQr" class="qr-caption" role="status">Đang tạo mã QR...</p>
+          </div>
+        </article>
+      </section>
 
-        <div class="col-md-8 mb-4">
-          <div class="card border-0 shadow-sm h-100 rounded-3">
-            <div class="card-header bg-white py-3 border-bottom-0">
-              <h6 class="mb-0 fw-bold text-primary">
-                <i class="bi bi-clock-history me-2"></i>LỊCH SỬ RA VÀO
-                (CHECK-IN)
-              </h6>
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                  <thead
-                    class="table-light text-secondary"
-                    style="font-size: 14px"
-                  >
-                    <tr>
-                      <th class="ps-4 border-0">Thời gian (Ngày & Giờ)</th>
-                      <th class="border-0">Thao tác</th>
-                      <th class="border-0 text-center">Trạng thái</th>
-                    </tr>
-                  </thead>
-                  <tbody id="bangCheckInKhach">
-                    <tr>
-                      <td colspan="3" class="text-center py-5 text-muted">
-                        <span
-                          class="spinner-border spinner-border-sm text-success"
-                          role="status"
-                        ></span>
-                        Đang tải dữ liệu ra vào...
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+      <section class="portal-stat-grid" aria-label="Hoạt động hội viên">
+        <article class="portal-stat-card">
+          <span class="stat-icon"><i class="bi bi-calendar2-check" aria-hidden="true"></i></span>
+          <div><span class="stat-label">Lượt check-in</span><strong id="tongCheckIn">—</strong><small>Tổng lượt ghi nhận</small></div>
+        </article>
+        <article class="portal-stat-card">
+          <span class="stat-icon stat-icon-soft"><i class="bi bi-person-vcard" aria-hidden="true"></i></span>
+          <div><span class="stat-label">Hội viên</span><strong id="maHoiVien">Đang tải</strong><small>Mã tài khoản của bạn</small></div>
+        </article>
+        <a class="portal-stat-card portal-support" href="tel:19001234">
+          <span class="stat-icon stat-icon-support"><i class="bi bi-headset" aria-hidden="true"></i></span>
+          <div><span class="stat-label">Cần hỗ trợ?</span><strong>Gọi lễ tân</strong><small>1900 1234</small></div>
+          <i class="bi bi-arrow-up-right support-arrow" aria-hidden="true"></i>
+        </a>
+      </section>
+
+      <section class="portal-card history-card" aria-labelledby="history-title">
+        <div class="section-heading">
+          <div>
+            <p class="portal-overline">NHỊP LUYỆN TẬP CỦA BẠN</p>
+            <h2 id="history-title">Lịch sử check-in</h2>
           </div>
+          <span class="history-note"><i class="bi bi-shield-check" aria-hidden="true"></i> Dữ liệu từ hệ thống</span>
         </div>
-      </div>
-    </div>
+        <div class="table-responsive portal-table-wrap">
+          <table class="table portal-table align-middle mb-0">
+            <thead><tr><th scope="col">Ngày &amp; giờ</th><th scope="col">Hoạt động</th><th scope="col" class="text-end">Trạng thái</th></tr></thead>
+            <tbody id="bangCheckInKhach">
+              <tr><td colspan="3" class="table-state"><span class="portal-loader" aria-hidden="true"></span>Đang tải lịch sử check-in...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="history-footnote">Hiển thị tối đa 10 lượt check-in gần nhất.</p>
+      </section>
+
+      <section class="portal-bottom-note">
+        <span class="note-mark"><i class="bi bi-lightning-charge" aria-hidden="true"></i></span>
+        <p><strong>Mỗi lần có mặt là một bước tiến.</strong><br />Giữ nhịp tập luyện đều đặn theo mục tiêu của riêng bạn.</p>
+        <a href="/" class="note-link">Khám phá GymHoacDo <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+      </section>
+    </main>
+
+    <footer class="portal-footer"><div class="portal-shell"><span>© <span id="portalYear"></span> GymHoacDo</span><a href="/">Trang chủ</a></div></footer>
 
     <script src="./assets/js/api.js"></script>
-    <script src="./assets/js/api.js"></script>
-    <script>
-      function kiemTraQuyenKhach() {
-        const role = localStorage.getItem("userRole");
-        if (!role) {
-          window.location.href = "login.html";
-        } else if (role !== "Member") {
-          window.location.href = "index.html";
-        }
-      }
-      kiemTraQuyenKhach();
-
-      function dangXuat() {
-        localStorage.clear();
-        window.location.href = "login.html";
-      }
-
-      async function taiDuLieuCaNhan() {
-        const memberId = localStorage.getItem("memberId");
-        if (!memberId) {
-          alert("Lỗi: Không tìm thấy ID Hội viên!");
-          return;
-        }
-
-        try {
-          const resMember = await callApi("/Member/" + memberId, "GET");
-          const elTen = document.getElementById("tenHoiVien");
-
-          if (resMember && resMember.status === 200 && resMember.data) {
-            const info = resMember.data.data || resMember.data;
-            elTen.innerText = "Xin chào, " + (info.full_name || "Hội viên");
-          } else {
-            elTen.innerText = "Xin chào, Hội viên";
-          }
-
-          const resSub = await callApi(
-            "/Subscription/Member/" + memberId,
-            "GET",
-          );
-          const elTenGoi = document.getElementById("tenGoiTap");
-          const elHan = document.getElementById("ngayHetHan");
-
-          if (resSub && (resSub.status === 200 || resSub.status === 204)) {
-            let danhSachThe = resSub.data
-              ? resSub.data.data || resSub.data
-              : [];
-            if (!Array.isArray(danhSachThe))
-              danhSachThe = danhSachThe ? [danhSachThe] : [];
-
-            if (danhSachThe.length > 0) {
-              const theHienTai = danhSachThe[danhSachThe.length - 1];
-              elTenGoi.innerText =
-                theHienTai.package_name || "Gói tập mặc định";
-              elHan.innerText = theHienTai.end_date
-                ? theHienTai.end_date.split("T")[0]
-                : "Không xác định";
-
-              if (theHienTai.status && theHienTai.status.includes("Frozen")) {
-                elHan.innerText += " (Đang bảo lưu)";
-                elHan.className = "text-warning fw-bold mb-4";
-              }
-            } else {
-              elTenGoi.innerText = "Chưa đăng ký gói";
-              elHan.innerText = "--/--/----";
-            }
-          } else {
-            elTenGoi.innerText = "Không có dữ liệu";
-            elHan.innerText = "--/--/----";
-          }
-
-          const resCheckIn = await callApi(
-            "/CheckIn/History/" + memberId,
-            "GET",
-          );
-          const tbody = document.getElementById("bangCheckInKhach");
-          tbody.innerHTML = "";
-
-          if (resCheckIn && resCheckIn.status === 200 && resCheckIn.data) {
-            let lichSu = resCheckIn.data.data || resCheckIn.data;
-            if (!Array.isArray(lichSu)) lichSu = [];
-
-            if (lichSu.length === 0) {
-              tbody.innerHTML =
-                "<tr><td colspan='3' class='text-center py-5 text-muted'>Bạn chưa có lượt Check-in nào tại phòng tập.</td></tr>";
-            } else {
-              lichSu.slice(0, 10).forEach((log) => {
-                const timeStr = log.checkin_time
-                  ? new Date(log.checkin_time).toLocaleString("vi-VN")
-                  : "Vừa xong";
-                tbody.innerHTML += `
-                            <tr>
-                                <td class="ps-4 fw-bold text-secondary">${timeStr}</td>
-                                <td>Quét mã QR</td>
-                                <td class="text-center"><span class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Thành công</span></td>
-                            </tr>
-                        `;
-              });
-            }
-          } else {
-            tbody.innerHTML =
-              "<tr><td colspan='3' class='text-center py-5 text-muted'>Chưa có dữ liệu lịch sử quẹt thẻ.</td></tr>";
-          }
-        } catch (error) {
-          console.error("Lỗi khi tải dữ liệu:", error);
-          document.getElementById("tenHoiVien").innerText =
-            "Xin chào, Hội viên";
-          document.getElementById("bangCheckInKhach").innerHTML =
-            "<tr><td colspan='3' class='text-center py-5 text-danger'>Lỗi kết nối đến máy chủ.</td></tr>";
-        }
-      }
-
-      function moFormBaoLuu() {
-        alert(
-          "Chức năng tự yêu cầu bảo lưu thẻ đang được hệ thống nâng cấp. Vui lòng liên hệ trực tiếp Lễ tân tại quầy để được hỗ trợ nhé!",
-        );
-      }
-
-      taiDuLieuCaNhan();
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" referrerpolicy="no-referrer"></script>
+    <script src="./assets/js/member-portal.js"></script>
   </body>
 </html>

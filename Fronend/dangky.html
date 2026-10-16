@@ -14,15 +14,19 @@
     />
     <style>
       :root {
-        --gym-orange: #ff6b00;
-        --gym-dark: #181c32;
-        --gym-light-bg: #f4f6f9;
+        --gym-orange: #ef6b24;
+        --gym-orange-hover: #ff8744;
+        --gym-dark: #171815;
+        --gym-dark-soft: #22231f;
+        --gym-light-bg: #f2f0eb;
+        --gym-surface: #fffefa;
+        --gym-muted: #6a6b64;
       }
 
       body {
         font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         background-color: var(--gym-light-bg);
-        color: #333;
+        color: var(--gym-dark);
       }
 
       .navbar {
@@ -42,7 +46,7 @@
 
       .hero-section {
         background:
-          linear-gradient(rgba(24, 28, 50, 0.75), rgba(24, 28, 50, 0.85)),
+          linear-gradient(rgba(23, 24, 21, 0.75), rgba(23, 24, 21, 0.85)),
           url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop")
             no-repeat center center;
         background-size: cover;
@@ -60,7 +64,7 @@
       .hero-subtitle {
         font-size: 1.1rem;
         font-weight: 400;
-        color: #d1d5db;
+        color: #d2d1ca;
         max-width: 700px;
         margin: 0 auto;
       }
@@ -279,12 +283,45 @@
         padding: 40px 0 20px;
         border-top: 5px solid var(--gym-orange);
       }
+
+      /* Match the charcoal, warm-white and orange palette used on home.html. */
+      body { color: var(--gym-dark); }
+      .hero-section {
+        background-image:
+          linear-gradient(rgba(23, 24, 21, 0.72), rgba(23, 24, 21, 0.84)),
+          url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop");
+      }
+      .card-custom, .pricing-card { background-color: var(--gym-surface); }
+      .card-header-custom { border-color: #e4e1d9; }
+      .card-dark { background-color: var(--gym-dark); box-shadow: 0 10px 40px rgba(23, 24, 21, 0.24); }
+      .form-label { color: var(--gym-muted); }
+      .form-control, .form-select { background-color: var(--gym-light-bg); border-color: #d7d5ce; }
+      .form-control:focus, .form-select:focus {
+        border-color: var(--gym-orange);
+        box-shadow: 0 0 0 4px rgba(239, 107, 36, 0.18);
+        background-color: var(--gym-surface);
+      }
+      .card-dark .form-control { background-color: var(--gym-dark-soft); border-color: rgba(255, 255, 255, 0.18); }
+      .card-dark .form-control:focus { background-color: #2b2c27; box-shadow: 0 0 0 4px rgba(239, 107, 36, 0.22); }
+      .card-dark .form-control::placeholder { color: rgba(255, 255, 255, 0.55); }
+      .text-warning { color: var(--gym-orange) !important; }
+      .amenities-section { background: var(--gym-surface); }
+      .amenity-icon { background: rgba(239, 107, 36, 0.1); }
+      .amenity-box:hover .amenity-icon { color: #211a16; }
+      .pricing-card { box-shadow: 0 10px 30px rgba(23, 24, 21, 0.05); }
+      .pricing-card.popular { box-shadow: 0 20px 40px rgba(239, 107, 36, 0.12); }
+      .pricing-card.popular::before { color: #211a16; }
+      .price-value span { color: var(--gym-muted); }
+      .price-features li { color: #55564f; }
+      .btn-orange { color: #211a16; }
+      .btn-orange:hover { background-color: var(--gym-orange-hover); color: #211a16; box-shadow: 0 8px 20px rgba(239, 107, 36, 0.22); }
+      .footer { border-top-color: var(--gym-orange); }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-dark">
       <div class="container d-flex justify-content-between align-items-center">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="home.html">
           <i class="bi bi-activity"></i> GYM<span>PRO</span>
         </a>
         <a
@@ -292,7 +329,7 @@
           class="btn btn-outline-light btn-sm fw-bold px-3 py-2"
           style="border-radius: 8px"
         >
-          <i class="bi bi-shield-lock me-1"></i> NHÂN VIÊN
+          <i class="bi bi-shield-lock me-1"> Đăng nhập </i>
         </a>
       </div>
     </nav>
@@ -417,8 +454,8 @@
               <div
                 class="mt-5 p-3 rounded"
                 style="
-                  background: rgba(255, 107, 0, 0.1);
-                  border: 1px dashed rgba(255, 107, 0, 0.3);
+                  background: rgba(239, 107, 36, 0.1);
+                  border: 1px dashed rgba(239, 107, 36, 0.3);
                 "
               >
                 <div class="d-flex align-items-center">

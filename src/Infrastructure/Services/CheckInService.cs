@@ -4,6 +4,7 @@ using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +25,17 @@ public class CheckInService : ICheckInService
             .FirstOrDefaultAsync(m => m.PhoneNumber == request.PhoneNumber);
 
         if (member == null)
-            throw new Exception("Không tìm thấy hội viên với số điện thoại này!");
+            throw new KeyNotFoundException("Không tìm thấy hội viên với số điện thoại trong mã QR.");
+
+        var today = DateTime.Now.Date;
+        var tomorrow = today.AddDays(1);
+        var alreadyCheckedInToday = await _context.CheckInLogs
+            .AnyAsync(log => log.MemberId == member.Id
+                          && log.CheckInTime >= today
+                          && log.CheckInTime < tomorrow);
+
+        if (alreadyCheckedInToday)
+            throw new InvalidOperationException("Hội viên đã check-in hôm nay.");
 
         
         var subscription = await _context.Subscriptions
@@ -35,8 +46,6 @@ public class CheckInService : ICheckInService
         
         if (subscription == null)
             throw new UnauthorizedAccessException("Hội viên chưa mua gói tập nào!");
-
-        DateTime today = DateTime.Now.Date;
 
     
         if (subscription.EndDate.Date < today)

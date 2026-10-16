@@ -4,7 +4,11 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore; 
 using Scalar.AspNetCore; 
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args,
+    WebRootPath = Path.Combine(AppContext.BaseDirectory, "wwwroot")
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -50,6 +54,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+var defaultFiles = new DefaultFilesOptions();
+defaultFiles.DefaultFileNames.Clear();
+defaultFiles.DefaultFileNames.Add("home.html");
+app.UseDefaultFiles(defaultFiles);
+app.UseStaticFiles();
 app.MapControllers();
 
 

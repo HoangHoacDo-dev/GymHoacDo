@@ -382,6 +382,25 @@
       .circuit-right {
         left: -50px;
       }
+      .home-link {
+        position: relative;
+        z-index: 6;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 16px;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      .home-link:hover { color: var(--text-white); }
+      .home-link:focus-visible { outline: 2px solid var(--primary-neon); outline-offset: 4px; }
+      .password-toggle-button { padding: 0; border: 0; background: transparent; }
+      @media (max-width: 767.98px) {
+        body { min-height: 100vh; height: auto; overflow-x: hidden; overflow-y: auto; padding: 24px 0; }
+        .login-container { width: 100%; padding: 0 16px; }
+        .cyber-card { width: min(450px, 100%); padding: 30px 24px; }
+      }
     </style>
   </head>
   <body>
@@ -418,6 +437,9 @@
       </div>
 
       <div class="cyber-card">
+        <a class="home-link" href="/" aria-label="Về trang chủ GymHoacDo">
+          <i class="bi bi-arrow-left" aria-hidden="true"></i><span>Về trang chủ</span>
+        </a>
         <div class="brand-title">GYM PRO</div>
         <div class="brand-subtitle">SYSTEM AUTHENTICATION</div>
 
@@ -432,6 +454,8 @@
             <input
               type="text"
               id="txtEmail"
+              aria-label="Tài khoản hoặc số điện thoại"
+              autocomplete="username"
               class="form-control-cyber"
               placeholder="EMAIL / SĐT..."
               required
@@ -443,16 +467,21 @@
             <input
               type="password"
               id="txtPassword"
+              aria-label="Mật khẩu"
+              autocomplete="current-password"
               class="form-control-cyber"
               placeholder="PASSWORD..."
               required
             />
             <i class="bi bi-shield-lock input-icon"></i>
-            <i
-              class="bi bi-eye-slash password-toggle"
+            <button
+              type="button"
+              class="password-toggle password-toggle-button"
               id="eyeIconToggle"
               onclick="handleTogglePassword()"
-            ></i>
+              aria-label="Hiện mật khẩu"
+              aria-pressed="false"
+            ><i class="bi bi-eye-slash" aria-hidden="true"></i></button>
           </div>
 
           <button type="submit" class="btn-cyber" id="btnDangNhap">
@@ -492,15 +521,15 @@
     <script src="./assets/js/api.js"></script>
     <script>
       function handleTogglePassword() {
-        var passwordInput = document.getElementById("txtPassword");
-        var icon = document.getElementById("eyeIconToggle");
-        if (passwordInput.type === "password") {
-          passwordInput.type = "text";
-          icon.classList.replace("bi-eye-slash", "bi-eye");
-        } else {
-          passwordInput.type = "password";
-          icon.classList.replace("bi-eye", "bi-eye-slash");
-        }
+        const passwordInput = document.getElementById("txtPassword");
+        const toggle = document.getElementById("eyeIconToggle");
+        const icon = toggle.querySelector("i");
+        const showPassword = passwordInput.type === "password";
+        passwordInput.type = showPassword ? "text" : "password";
+        icon.classList.toggle("bi-eye", showPassword);
+        icon.classList.toggle("bi-eye-slash", !showPassword);
+        toggle.setAttribute("aria-pressed", String(showPassword));
+        toggle.setAttribute("aria-label", showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu");
       }
 
       setInterval(() => {
@@ -551,10 +580,13 @@
         .getElementById("formDangNhap")
         .addEventListener("submit", async function (e) {
           e.preventDefault();
-          const email = document.getElementById("txtEmail").value;
+          const form = e.currentTarget;
+          const email = document.getElementById("txtEmail").value.trim();
           const password = document.getElementById("txtPassword").value;
           const thongBao = document.getElementById("thongBaoLoi");
           const btn = document.getElementById("btnDangNhap");
+
+          if (!form.reportValidity()) return;
 
           btn.disabled = true;
           btn.innerHTML =
@@ -562,11 +594,11 @@
           thongBao.classList.add("d-none");
 
           const res = await callApi("/Auth/login", "POST", {
-            Email: email,
-            Password: password,
+            email: email,
+            password: password,
           });
 
-          if (res && res.status === 200) {
+          if (res && res.status === 200 && res.data?.data?.token && res.data?.data?.role) {
             btn.innerHTML = 'AUTH SUCCESS <i class="bi bi-unlock ms-2"></i>';
             btn.style.background = "var(--primary-neon)";
             btn.style.color = "var(--dark-bg)";
@@ -587,7 +619,7 @@
               }
             }, 800);
           } else {
-            thongBao.innerText = "[!] LỖI BẢO MẬT: SAI TÀI KHOẢN HOẶC MẬT KHẨU";
+            thongBao.innerText = res?.data?.message || "Không thể đăng nhập. Vui lòng kiểm tra API và tài khoản.";
             thongBao.classList.remove("d-none");
             btn.disabled = false;
             btn.innerHTML =

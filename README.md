@@ -63,7 +63,7 @@ dotnet test tests/
 **Bước 3: Chạy ứng dụng API**
 
 ```Bash
-dotnet run --project src/API
+dotnet run --project src/API --launch-profile http
 ```
 Chúc cả đội phối hợp ăn ý và đạt điểm tối đa!
 
