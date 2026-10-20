@@ -4,6 +4,7 @@ using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +30,14 @@ public class CheckInController : ControllerBase
         {
             var response = await _checkInService.ProcessCheckInAsync(request);
             return Ok(response);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { status = "error", message = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(new { status = "error", message = ex.Message });
         }
         catch (UnauthorizedAccessException ex)
         {

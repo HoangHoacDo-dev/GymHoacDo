@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5141/api";
+const BASE_URL = "/api";
 
 async function callApi(endpoint, method = "GET", data = null) {
   const token = localStorage.getItem("jwt_token");

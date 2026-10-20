@@ -192,78 +192,12 @@ Hoặc thử lệnh theo hướng dẫn của bộ test:
 ```bash
 dotnet test tests/
 ```
+**Bước 3: Chạy ứng dụng API**
 
-Kiểm tra kết quả trong Terminal để biết số lượng test thành công và thất bại.
-
-### Nguyên tắc kiểm thử
-
-- Viết test cho các nghiệp vụ quan trọng.
-- Kiểm tra cả trường hợp hợp lệ và dữ liệu không hợp lệ.
-- Không sử dụng assertion giả để làm test luôn thành công.
-- Không chỉnh sửa hoặc vô hiệu hóa các bài test chấm điểm do giảng viên cung cấp.
-- Đặt các bài test tự viết trong `tests/StudentTests/` theo cấu trúc mà bộ chấm điểm yêu cầu.
-
-## 🌿 Làm việc với Git
-
-Dự án sử dụng Git và GitHub để quản lý phiên bản mã nguồn.
-
-### 1. Cập nhật nhánh main
-
-```bash
-git switch main
-git pull origin main
+```Bash
+dotnet run --project src/API
 ```
+Chúc cả đội phối hợp ăn ý và đạt điểm tối đa!
 
-### 2. Tạo nhánh cho tính năng mới
 
-```bash
-git switch -c feature/member-management
-```
-
-Đặt tên nhánh theo tính năng hoặc lỗi cần xử lý, ví dụ:
-
-- `feature/member-management`
-- `feature/checkin`
-- `feature/subscription`
-- `fix/database-connection`
-
-### 3. Commit thay đổi
-
-```bash
-git add .
-git commit -m "Add member management"
-```
-
-Trước khi commit, kiểm tra `git status` để tránh đưa mật khẩu, file dữ liệu cục bộ hoặc file sinh ra khi build vào Git.
-
-### 4. Push nhánh và tạo Pull Request
-
-```bash
-git push -u origin feature/member-management
-```
-
-Sau đó mở repository trên GitHub và tạo Pull Request để xem xét, kiểm tra và hợp nhất thay đổi.
-
-**Quy tắc quan trọng:**
-
-- Không phát triển trực tiếp trên `main`.
-- Cập nhật mã nguồn mới nhất trước khi tích hợp thay đổi.
-- Không sử dụng `git push --force` để ghi đè lịch sử dùng chung.
-- Không sửa các file trong `.github/workflows/` và `tests/AutogradingTests/` nếu không được phép.
-
-## 📚 Tài liệu
-
-- **Repository:** [GymHoacDo trên GitHub](https://github.com/HoangHoacDo-dev/GymHoacDo)
-- **Tài liệu dự án:** Thư mục `docs/`.
-- **API Explorer:** `/scalar/v1` trên địa chỉ API đang chạy.
-- **.NET Documentation:** [Microsoft Learn](https://learn.microsoft.com/dotnet/)
-
-## 👨‍💻 Tác giả và đóng góp
-
-**HoangHoacDo-dev** – Chủ repository GymHoacDo.
-
-Dự án được phát triển trong khuôn khổ đồ án môn học. Các thành viên có thể đóng góp bằng cách tạo nhánh riêng, thực hiện thay đổi, kiểm thử và gửi Pull Request.
-
-## 📄 Giấy phép
-
-Chưa xác định giấy phép phân phối của dự án. Vui lòng bổ sung file `LICENSE` nếu muốn quy định rõ quyền sử dụng, sửa đổi và phân phối mã nguồn.
+---

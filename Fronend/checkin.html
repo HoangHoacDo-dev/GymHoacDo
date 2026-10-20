@@ -383,6 +383,8 @@
         }
       }
 
+      let isProcessingQr = false;
+
       document
         .getElementById("formCheckIn")
         .addEventListener("submit", async function (e) {
@@ -405,30 +407,42 @@
               "✔ " + (res.data.message || "Check-in thành công!");
             document.getElementById("txtPhone").value = "";
             taiLichSuCheckIn();
+          } else if (res && res.status === 409) {
+            thongBao.className = "alert alert-warning";
+            thongBao.innerText =
+              "⚠ Hội viên đã check-in hôm nay. Mỗi hội viên chỉ check-in một lần mỗi ngày.";
+          } else if (res && res.status === 404) {
+            thongBao.className = "alert alert-danger";
+            thongBao.innerText =
+              "✖ Mã QR không hợp lệ. Không tìm thấy hội viên theo số điện thoại trong mã.";
           } else if (res && res.status === 403) {
             thongBao.className = "alert alert-danger";
-            thongBao.innerText = "✖ TỪ CHỐI: Thẻ đã hết hạn hoặc đang bảo lưu!";
+            thongBao.innerText =
+              "✖ TỪ CHỐI: " +
+              (res.data && res.data.message
+                ? res.data.message
+                : "Thẻ không đủ điều kiện check-in.");
           } else {
-            thongBao.className = "alert alert-warning";
-            thongBao.innerText = "⚠ Không tìm thấy hội viên hoặc lỗi máy chủ.";
+            thongBao.className = "alert alert-danger";
+            thongBao.innerText =
+              "✖ " +
+              (res && res.data && res.data.message
+                ? res.data.message
+                : "Không thể xác nhận check-in. Vui lòng thử lại.");
           }
           btnSubmit.disabled = false;
           btnSubmit.innerText = "XÁC NHẬN RA VÀO";
+          isProcessingQr = false;
         });
 
       document.addEventListener("DOMContentLoaded", function () {
-        let isProcessing = false;
-
         function onScanSuccess(decodedText, decodedResult) {
-          if (isProcessing) return;
-          isProcessing = true;
+          const submitButton = document.getElementById("btnXacNhan");
+          if (isProcessingQr || submitButton.disabled) return;
+          isProcessingQr = true;
 
           document.getElementById("txtPhone").value = decodedText;
-          document.getElementById("btnXacNhan").click();
-
-          setTimeout(() => {
-            isProcessing = false;
-          }, 3000);
+          submitButton.click();
         }
 
         function onScanFailure(error) {}
